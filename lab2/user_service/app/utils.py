@@ -3,7 +3,6 @@ from datetime import datetime, timedelta
 import jwt
 from typing import Optional
 
-# Конфигурация
 SECRET_KEY = "secret"
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 30
