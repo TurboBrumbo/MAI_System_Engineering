@@ -58,7 +58,7 @@ workspace {
         dynamic conference_site "Add_participant" "Добавление пользователя" {
             autolayout lr
             description "Сценарий добавления нового пользователя"
-            admin -> API "Запрос на добавление нового пользоваеля"
+            admin -> API "Запрос на добавление нового пользователя"
             API -> conference_site.user_service "Передача данных о новом пользователе"
             conference_site.user_service -> data_base "Сохранение данных о новом пользователе в базе данных"
         }
