@@ -17,9 +17,9 @@
 9. Ваши сервисы должны запускаться через docker-compose коммандой dockercompose up (создайте Docker файлы для каждого сервиса)
 ## Результаты работы
 Три сервиса:
-* [Сервис авторизации пользователей](): http://localhost:8000/docs - веб-интерфейс для сервиса авторизации через Swagger UI FastAPI
-* [Сервис докладов](): http://localhost:8001/
-* [Сервис конференций](): http://localhost:8002/
+* [Сервис авторизации пользователей](https://github.com/TurboBrumbo/MAI_System_Engineering/tree/main/lab2/user_service): http://localhost:8000/docs - веб-интерфейс для сервиса авторизации через Swagger UI FastAPI
+* [Сервис докладов](https://github.com/TurboBrumbo/MAI_System_Engineering/tree/main/lab2/review_service): http://localhost:8001/
+* [Сервис конференций](https://github.com/TurboBrumbo/MAI_System_Engineering/tree/main/lab2/conference_service): http://localhost:8002/
 
 Мастер-пользователь:
 * Логин: `admin`
@@ -27,13 +27,13 @@
 
 Прочее:
 
-* [updated_workspace.dsl]() - обновленная архитектура из первого задания
-* [docker-compose.yml]() - YAML-файл для управления мультиконтейнерными Docker-приложениями
-* [openapi.yaml]() - спецификация в формате YAML, описывающая API сервиса согласно стандарту OpenAPI
+* [updated_workspace.dsl](https://github.com/TurboBrumbo/MAI_System_Engineering/blob/main/lab2/updated_workspace.dsl) - обновленная архитектура из первого задания
+* [docker-compose.yml](https://github.com/TurboBrumbo/MAI_System_Engineering/blob/main/lab2/docker-compose.yml) - YAML-файл для управления мультиконтейнерными Docker-приложениями
+* [openapi.yaml](https://github.com/TurboBrumbo/MAI_System_Engineering/blob/main/lab2/openapi.yaml) - спецификация в формате YAML, описывающая API сервиса согласно стандарту OpenAPI
 
 ## Тестирование
 1. Выполнить команду в cmd: `docker-compose up --build`
 2. По ссылке http://localhost:8000/docs авторизовать под мастер-пользователем (`admin`, `secret`)
 3. Получить токен: `curl -X POST http://localhost:8000/token -d "username=admin&password=secret"`
-4. Ввести полученный токен в [test_review_service.py]() и [test_conference_service.py]() и посмотреть результат
+4. Ввести полученный токен в [test_review_service.py](https://github.com/TurboBrumbo/MAI_System_Engineering/blob/main/lab2/test_review_service.py) и [test_conference_service.py](https://github.com/TurboBrumbo/MAI_System_Engineering/blob/main/lab2/test_conference_service.py) и посмотреть результат
 5. В случае, если был использован актуальный токен авторизованного пользователя, в сервисах будут сохраняться данные о конференциях и докладах, в противном случае - ошибка
