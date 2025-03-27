@@ -33,7 +33,7 @@
 
 ## Тестирование
 1. Выполнить команду в cmd: `docker-compose up --build`
-2. По ссылке http://localhost:8000/docs авторизовать под мастер-пользователем (`admin`, `secret`)
+2. По ссылке http://localhost:8000/docs авторизоваться под мастер-пользователем (`admin`, `secret`)
 3. Получить токен: `curl -X POST http://localhost:8000/token -d "username=admin&password=secret"`
 4. Ввести полученный токен в [test_review_service.py](https://github.com/TurboBrumbo/MAI_System_Engineering/blob/main/lab2/test_review_service.py) и [test_conference_service.py](https://github.com/TurboBrumbo/MAI_System_Engineering/blob/main/lab2/test_conference_service.py) и посмотреть результат
-5. В случае, если был использован актуальный токен авторизованного пользователя, в сервисах будут сохраняться данные о конференциях и докладах, в противном случае - ошибка
+5. В случае, если был использован актуальный токен авторизованного пользователя, в сервисах будут сохраняться данные о конференциях и докладах, в противном случае будет ошибка
