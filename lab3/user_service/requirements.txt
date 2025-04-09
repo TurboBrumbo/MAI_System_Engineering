@@ -1,9 +1,0 @@
-fastapi
-uvicorn
-python-jose
-passlib
-pydantic
-python-multipart
-jwt
-sqlalchemy
-psycopg2-binary
