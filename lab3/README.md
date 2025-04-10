@@ -34,7 +34,7 @@
 
 ## Тестирование
 1. Выполнить команду в cmd: `docker-compose up --build`
-2. По ссылке http://localhost:8000/docs авторизоваться под мастер-пользователем (`admin`, `secret`)
+2. По ссылке http://localhost:8000/docs авторизоваться под мастер-пользователем (`admin`, `secret`) - необязательно в данном задании, но можно попробовать взаимодействовать с веб-приложением
 3. Получить токен: `curl -X POST http://localhost:8000/token -d "username=admin&password=secret"`
 4. В отличие от прошлого задания, теперь мы можем наполнять сервисы данными, и они будут сохраняться в базе данных: `curl -X POST "http://localhost:8002/conferences/" -H "Authorization: Bearer ВСТАВИТЬ_АКТУАЛЬНЫЙ_ТОКЕН" -H "Content-Type: application/json" -d "{\"title\": \"МФТИ IT Purple Conf\", \"description\": \"Для ботанов\", \"start_date\": \"2023-03-15T09:00:00\", \"end_date\": \"2023-03-15T18:00:00\"}"` - эта команда добавляет в таблицу `conferences` данные о конференции
 5. Выполнить команду `docker-compose exec postgres psql -U postgres -d conference_db`, чтобы взаимодействовать с базой данных PostgreSQL через терминал
