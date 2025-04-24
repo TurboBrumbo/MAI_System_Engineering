@@ -1,0 +1,57 @@
+services:
+  postgres:
+    image: postgres:15
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 1
+      POSTGRES_DB: conference_db
+    ports:
+      - "5435:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  mongodb:
+    image: mongo:5.0
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: mongo
+      MONGO_INITDB_ROOT_PASSWORD: 1
+
+  user_service:
+    build: ./user_service
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=postgresql://postgres:1@postgres:5432/conference_db
+      - MONGODB_URI=mongodb://mongo:1@mongodb:27017/
+      - PORT=8000
+    depends_on:
+      - postgres
+      - mongodb
+    volumes:
+      - ./user_service:/app
+
+  review_service:
+    build: ./review_service
+    ports:
+      - "8001:8001"
+    environment:
+      - PORT=8001
+    depends_on:
+      - user_service
+
+  conference_service:
+    build: ./conference_service
+    ports:
+      - "8002:8002"
+    environment:
+      - PORT=8002
+    depends_on:
+      - user_service
+
+volumes:
+  postgres_data:
+  mongodb_data:
