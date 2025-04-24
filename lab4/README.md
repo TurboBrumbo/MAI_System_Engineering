@@ -28,7 +28,7 @@
 * `reviews`
 * `conferences`
 
-Для инициализации БД PostgreSQL создан скрипт [init_db.py](https://github.com/TurboBrumbo/MAI_System_Engineering/blob/main/lab3/user_service/init_db.py), который создает таблицы с индексами и наполняет их тестовыми данными
+Для инициализации БД PostgreSQL создан скрипт [init_db.py](https://github.com/TurboBrumbo/MAI_System_Engineering/blob/main/lab4/user_service/init_db.py), который создает таблицы с индексами и наполняет их тестовыми данными
 
 Для инициализации БД MongoDB создано два скрипта `mongodb.py` соответственно находящиеся в [сервисе докладов](https://github.com/TurboBrumbo/MAI_System_Engineering/tree/main/lab4/review_service) и [сервисе конференций](https://github.com/TurboBrumbo/MAI_System_Engineering/tree/main/lab4/conference_service), создающие две коллекции в одной базе данных, наполняет их тестовыми данными, также создаются индексы для ускорения поиска
 
@@ -43,6 +43,5 @@
 
 Примечание: шаги для тестирования веб-сервиса и БД PostgreSQL приведены в [ДЗ №3](https://github.com/TurboBrumbo/MAI_System_Engineering/tree/main/lab3)
 
-2. Подключиться к контейнеру с MongoDB: `docker-compose exec mongodb bash`
-3. Запустить оболочку MongoDB Shell: `mongosh -u mongo -p 1`
-4. В качестве простых тестовых запросов можно выполнить: `show dbs` -> `use conference_db` -> `show collections` -> `db.conferences.find().pretty()` | `db.reviews.find().pretty()`
+2. Подключиться к контейнеру с MongoDB и запустить оболочку MongoDB Shell: `docker-compose exec mongodb mongosh -u mongo -p 1`
+3. В качестве простых тестовых запросов можно выполнить: `show dbs` -> `use conference_db` -> `show collections` -> `db.conferences.find().pretty()` | `db.reviews.find().pretty()`
