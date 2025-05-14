@@ -1,0 +1,258 @@
+openapi: 3.0.0
+info:
+  title: Conference Management API
+  description: API for managing users, reviews and conferences
+  version: 1.0.0
+servers:
+  - url: http://localhost:8000
+    description: User service
+  - url: http://localhost:8001
+    description: Review service
+  - url: http://localhost:8002
+    description: Conference service
+
+paths:
+  /token:
+    post:
+      summary: Get JWT token
+      tags: [auth]
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                password:
+                  type: string
+              required:
+                - username
+                - password
+      responses:
+        '200':
+          description: Successful login
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  access_token:
+                    type: string
+                  token_type:
+                    type: string
+
+  /users/me:
+    get:
+      summary: Get current user info
+      tags: [users]
+      responses:
+        '200':
+          description: User info
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+
+  /users/:
+    post:
+      summary: Create a new user
+      tags: [users]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserCreate'
+      responses:
+        '200':
+          description: Created user
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+
+  /users/search/username/{username}:
+    get:
+      summary: Search user by username
+      tags: [users]
+      parameters:
+        - name: username
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Found user
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+
+  /users/search/name/{name_part}:
+    get:
+      summary: Search user by name part
+      tags: [users]
+      parameters:
+        - name: name_part
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: List of matching users
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+
+  /reviews/:
+    get:
+      summary: Get all reviews or reviews for a conference
+      tags: [reviews]
+      parameters:
+        - name: conference_id
+          in: query
+          required: false
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: List of reviews
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Review'
+    post:
+      summary: Create a new review
+      tags: [reviews]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReviewCreate'
+      responses:
+        '200':
+          description: Created review
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Review'
+
+  /conferences/:
+    get:
+      summary: Get all conferences
+      tags: [conferences]
+      responses:
+        '200':
+          description: List of conferences
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Conference'
+    post:
+      summary: Create a new conference
+      tags: [conferences]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConferenceCreate'
+      responses:
+        '200':
+          description: Created conference
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Conference'
+
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        username:
+          type: string
+        full_name:
+          type: string
+        email:
+          type: string
+        disabled:
+          type: boolean
+    UserCreate:
+      type: object
+      properties:
+        username:
+          type: string
+        full_name:
+          type: string
+        email:
+          type: string
+      required:
+        - username
+    Review:
+      type: object
+      properties:
+        id:
+          type: integer
+        title:
+          type: string
+        author:
+          type: string
+        description:
+          type: string
+        conference_id:
+          type: integer
+    ReviewCreate:
+      type: object
+      properties:
+        title:
+          type: string
+        author:
+          type: string
+        description:
+          type: string
+        conference_id:
+          type: integer
+      required:
+        - title
+        - author
+    Conference:
+      type: object
+      properties:
+        id:
+          type: integer
+        title:
+          type: string
+        description:
+          type: string
+        start_date:
+          type: string
+        end_date:
+          type: string
+    ConferenceCreate:
+      type: object
+      properties:
+        title:
+          type: string
+        description:
+          type: string
+        start_date:
+          type: string
+        end_date:
+          type: string
+      required:
+        - title
+        - start_date
+        - end_date
